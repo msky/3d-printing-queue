@@ -5,18 +5,18 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class DepositMoneyCommand {
 
 	@TargetAggregateIdentifier
-	private final String accoundId;
+	private final String accountId;
 
 	private final long ammount;
 
-	public DepositMoneyCommand(String accoundId, long ammount) {
+	public DepositMoneyCommand(String accountId, long ammount) {
 		super();
-		this.accoundId = accoundId;
+		this.accountId = accountId;
 		this.ammount = ammount;
 	}
 
 	public String getAccountId() {
-		return accoundId;
+		return accountId;
 	}
 
 	public long getAmmount() {

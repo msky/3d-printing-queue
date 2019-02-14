@@ -5,18 +5,18 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class CreateBankAccountCommand {
 
 	@TargetAggregateIdentifier
-	private final String accoundId;
+	private final String accountId;
 
 	private final String ownerName;
 
-	public CreateBankAccountCommand(String accoundId, String ownerName) {
+	public CreateBankAccountCommand(String accountId, String ownerName) {
 		super();
-		this.accoundId = accoundId;
+		this.accountId = accountId;
 		this.ownerName = ownerName;
 	}
 
 	public String getAccountId() {
-		return accoundId;
+		return accountId;
 	}
 
 	public String getAccountOwner() {
