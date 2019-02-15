@@ -21,10 +21,5 @@ public class PrinterQueryController {
     public List<Printer> findAllPrinters(Map<String, Object> params) {
         return printerService.findAllPrinters();
     }
-
-    @GetMapping("/addPrinter")
-    public Printer addPrinter() {
-    	return printerService.createPrinter();
-    }
     
 }
