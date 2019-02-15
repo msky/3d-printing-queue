@@ -4,11 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import capgemini.printingQueue.cqrs.demo.server.query.model.BaseJpaRepository;
 
-@Repository
 interface PrintingJpaRepository extends BaseJpaRepository<PrintingBO> {
 	
     @Query("from Printing p where "
