@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ResponseBody
 @RequestMapping("/query")
-public class PrinterAccessController {
+public class PrinterQueryController {
 	
     @Autowired
     private PrinterService printerService;
 
-    @GetMapping("/printers/")
+    @GetMapping("/printers")
     public List<Printer> findAllPrinters(Map<String, Object> params) {
         return printerService.findAllPrinters();
     }
 
-    @GetMapping("/addPrinter/")
+    @GetMapping("/addPrinter")
     public Printer addPrinter() {
     	return printerService.createPrinter();
     }
