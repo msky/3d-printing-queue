@@ -40,4 +40,5 @@ class NewQueueCreationTest extends Specification {
         then:
         action.expectEvents(new QueueCreatedEvent(id, name))
     }
+    
 }

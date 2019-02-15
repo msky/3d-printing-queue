@@ -11,6 +11,12 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
 public class Queue {
+    
+    /**
+     * Time for single technical break - preparing or cleaning - in miliseconds.
+     * 15mins.
+     */
+    private static final Long TECHNICAL_BREAK_TIME = 900000L; 
 	
 	@AggregateIdentifier
 	private String id;
@@ -41,10 +47,14 @@ public class Queue {
 	}
 
 	@EventSourcingHandler
-	public void on(NewPrintingAddedEvent event) {
+	public void on(NewPrintingAddedEvent event) throws Exception {
         final Printing newPrinting = new Printing(event.getPrintingId(), event.getOwnerId(), event.getPrintingTime(),
                 event.getPrintingStartDate());
-	    this.printingList.add(newPrinting);
+        if (isNewPrintingAddPossible(newPrinting)) {
+            this.printingList.add(newPrinting);
+        } else {
+            throw new Exception("Printer busy on this time");
+        }
 	}
 	
 	public String getId() {
@@ -67,8 +77,24 @@ public class Queue {
         return printingList;
     }
 
-    public void setPrintingList(List<Printing> printingList) {
-        this.printingList = printingList;
+    /**
+     * Validates if new printing can be added. If printer will be free for his
+     * reservation time.
+     * 
+     * @param newPrinting new Printing to add
+     * @return true if printing can be added, otherwise false
+     */
+    private boolean isNewPrintingAddPossible(Printing newPrinting) {
+        final Long newPrintingStartDate = newPrinting.getPrintingStartDate().getTime();
+        final Long newPrintingEstimatedEndDate = newPrintingStartDate + newPrinting.getPrintingTime() + 2 * TECHNICAL_BREAK_TIME;
+        for (Printing printing : printingList) {
+            final Long printingStartDate = printing.getPrintingStartDate().getTime();
+            final Long estimatedEndDate = printingStartDate + printing.getPrintingTime() + 2 * TECHNICAL_BREAK_TIME;
+            if (newPrintingStartDate < estimatedEndDate && newPrintingEstimatedEndDate > printingStartDate) {
+                return false;
+            }
+        }
+        return true;
     }
 	
 }

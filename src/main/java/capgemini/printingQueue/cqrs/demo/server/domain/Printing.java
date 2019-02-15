@@ -8,6 +8,9 @@ public class Printing {
 
     private final String ownerId;
     
+    /**
+     * Printing Time in miliseconds.
+     */
     private final Long printingTime;
     
     private final Date printingStartDate;
