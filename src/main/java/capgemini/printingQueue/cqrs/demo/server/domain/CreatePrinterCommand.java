@@ -2,14 +2,14 @@ package capgemini.printingQueue.cqrs.demo.server.domain;
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-public class CreateQueueCommand {
+public class CreatePrinterCommand {
 	
 	@TargetAggregateIdentifier
 	private final String id;
 	
 	private final String name;
 
-	public CreateQueueCommand(String queueId, String queueName) {
+	public CreatePrinterCommand(String queueId, String queueName) {
 		this.id = queueId;
 		this.name = queueName;
 	}

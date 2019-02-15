@@ -23,6 +23,6 @@ public class PrinterCommandController {
 	@PostMapping("/printers")
 	public void addNewPrinter(@RequestParam String printerName) throws InterruptedException, ExecutionException {
 		final UUID queueId = UUID.randomUUID();
-		System.out.println(commandGateway.send(new CreateQueueCommand(queueId.toString(), printerName)).get());
+		System.out.println(commandGateway.send(new CreatePrinterCommand(queueId.toString(), printerName)).get());
 	}
 }

@@ -10,7 +10,7 @@ import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
-public class Queue {
+public class Printer {
     
     /**
      * Time for single technical break - preparing or cleaning - in miliseconds.
@@ -26,16 +26,16 @@ public class Queue {
 	private List<Printing> printingList = new ArrayList<Printing>();
 
 	
-	public Queue() {
+	public Printer() {
 	}
 	
 	@CommandHandler
-	public Queue(CreateQueueCommand command) {
-		AggregateLifecycle.apply(new QueueCreatedEvent(command.getId(), command.getName()));
+	public Printer(CreatePrinterCommand command) {
+		AggregateLifecycle.apply(new PrinterCreatedEvent(command.getId(), command.getName()));
 	}
 	
 	@EventSourcingHandler
-	public void on(QueueCreatedEvent event) {
+	public void on(PrinterCreatedEvent event) {
 		id = event.getId();
 		name = event.getName();
 	}

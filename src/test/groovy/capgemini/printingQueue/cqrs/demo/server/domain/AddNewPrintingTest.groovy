@@ -12,10 +12,10 @@ import spock.lang.Specification
 
 class AddNewPrintingTest extends Specification {
 
-    private FixtureConfiguration<Queue> fixture
+    private FixtureConfiguration<Printer> fixture
     
     def setup() {
-        fixture = new AggregateTestFixture<Queue>(Queue.class)
+        fixture = new AggregateTestFixture<Printer>(Printer.class)
     }
     
     def "should call add new printing event"() {
@@ -30,7 +30,7 @@ class AddNewPrintingTest extends Specification {
         fixture.setReportIllegalStateChange(false)
         
         when:
-        def action = fixture.givenCommands(new CreateQueueCommand(queueId, queueName))
+        def action = fixture.givenCommands(new CreatePrinterCommand(queueId, queueName))
                     .when(new AddNewPrintingCommand(queueId, printingId, ownerId, printingTime, printingStartDate))
         
         then:
@@ -39,7 +39,7 @@ class AddNewPrintingTest extends Specification {
     
     def "should add new printing to list"() {
         given:
-        def queue = new Queue()
+        def queue = new Printer()
         def queueId = UUID.randomUUID().toString()
         def printingId = new Random().nextLong()
         def ownerId = "123"
@@ -57,7 +57,7 @@ class AddNewPrintingTest extends Specification {
     }
     def "should not add new printing to list when technical break"() {
         given:
-        def queue = new Queue()
+        def queue = new Printer()
         def queueId = UUID.randomUUID().toString()
         def printingId = new Random().nextLong()
         def ownerId = "123"
@@ -76,7 +76,7 @@ class AddNewPrintingTest extends Specification {
     
     def "should not add new printing to list when printer busy on time"() {
         given:
-        def queue = new Queue()
+        def queue = new Printer()
         def queueId = UUID.randomUUID().toString()
         def printingId = new Random().nextLong()
         def ownerId = "123"

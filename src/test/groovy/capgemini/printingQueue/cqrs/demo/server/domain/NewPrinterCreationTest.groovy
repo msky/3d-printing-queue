@@ -5,22 +5,22 @@ import org.axonframework.test.aggregate.FixtureConfiguration;
 
 import spock.lang.Specification;
 
-class NewQueueCreationTest extends Specification {
+class NewPrinterCreationTest extends Specification {
 	
-	private FixtureConfiguration<Queue> fixture
+	private FixtureConfiguration<Printer> fixture
 	
 	def setup() {
-		fixture = new AggregateTestFixture<Queue>(Queue.class)
+		fixture = new AggregateTestFixture<Printer>(Printer.class)
 	}
 
-	def "after queue creation id and name should be assigned"() {
+	def "after printer creation id and name should be assigned"() {
 		given:
 		def id = UUID.randomUUID().toString()
-		def name = "queue1"
-		def queue = new Queue()
+		def name = "printer1"
+		def queue = new Printer()
 		
 		when:
-		queue.on(new QueueCreatedEvent(id, name))
+		queue.on(new PrinterCreatedEvent(id, name))
 		
 		then:
 		queue.getId() == id
@@ -32,13 +32,13 @@ class NewQueueCreationTest extends Specification {
         
         given:
         def id = UUID.randomUUID().toString()
-        def name = "queue1"
+        def name = "printer1"
         
         when:
-        def action = fixture.given().when(new CreateQueueCommand(id, name))
+        def action = fixture.given().when(new CreatePrinterCommand(id, name))
         
         then:
-        action.expectEvents(new QueueCreatedEvent(id, name))
+        action.expectEvents(new PrinterCreatedEvent(id, name))
     }
     
 }
