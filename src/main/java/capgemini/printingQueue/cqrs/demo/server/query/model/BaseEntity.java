@@ -8,9 +8,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 
-import capgemini.printingQueue.cqrs.demo.server.query.printers.PrinterBO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -43,7 +41,7 @@ public abstract class BaseEntity extends Entity {
     private Date updatedAt;
 
     @NonNull
-    @Column(nullable = false, name = "updated_by")
+    @Column(name = "updated_by")
     private Long updatedBy;
 
     /**
