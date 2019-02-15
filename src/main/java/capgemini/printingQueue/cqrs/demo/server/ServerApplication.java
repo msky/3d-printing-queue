@@ -7,14 +7,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "capgemini.printingQueue.cqrs.demo.query.printings",
-		"capgemini.printingQueue.cqrs.demo.query.printers" })
+@ComponentScan(basePackages = { "capgemini.printingQueue.cqrs.demo" })
 @EnableJpaRepositories(basePackages = { "capgemini.printingQueue.cqrs.demo.query.printings",
 		"capgemini.printingQueue.cqrs.demo.query.printers", "org.axonframework.modelling.saga.repository" })
 @EntityScan(basePackages = { "capgemini.printingQueue.cqrs.demo.query.printings",
 		"capgemini.printingQueue.cqrs.demo.query.printers", "org.axonframework.modelling.saga.repository" })
 public class ServerApplication {
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServerApplication.class, args);
