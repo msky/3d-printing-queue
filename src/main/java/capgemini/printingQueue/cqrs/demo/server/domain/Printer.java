@@ -38,11 +38,12 @@ public class Printer {
 	
     @CommandHandler
     public void on(AddNewPrintingCommand command) throws Exception {
-        final Printing newPrinting = new Printing(command.getPrintingId(), command.getOwnerId(), command.getPrintingTime(),
-                command.getPrintingStartDate());
+        final Printing newPrinting = new Printing(command.getPrintingId(), command.getPrintingName(),
+                command.getOwnerId(), command.getPrintingTime(), command.getPrintingStartDate());
         if (queue.isNewPrintingAddPossible(newPrinting)) {
-            AggregateLifecycle.apply(new NewPrintingAddedEvent(command.getPrinterId(), command.getPrintingId(),
-                    command.getOwnerId(), command.getPrintingTime(), command.getPrintingStartDate()));
+            AggregateLifecycle.apply(new NewPrintingAddedEvent(command.getPrinterId(), command.getPrintingName(),
+                    command.getPrintingId(), command.getOwnerId(), command.getPrintingTime(),
+                    command.getPrintingStartDate()));
         } else {
             throw new Exception("Printer busy on this time");
         }

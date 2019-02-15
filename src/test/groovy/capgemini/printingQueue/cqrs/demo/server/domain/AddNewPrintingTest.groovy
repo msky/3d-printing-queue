@@ -23,6 +23,7 @@ class AddNewPrintingTest extends Specification {
      
         def printerId = UUID.randomUUID().toString()
         def printerName = "printer1"
+        def printingName = "printing"
         def printingId = new Random().nextLong()
         def ownerId = "123"
         def printingTime = 21600000 //6h
@@ -31,10 +32,10 @@ class AddNewPrintingTest extends Specification {
         
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
-                    .when(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, printingStartDate))
+                    .when(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate))
         
         then:
-        action.expectEvents(new NewPrintingAddedEvent(printerId, printingId, ownerId, printingTime, printingStartDate))
+        action.expectEvents(new NewPrintingAddedEvent(printerId, printingName, printingId, ownerId, printingTime, printingStartDate))
     }
     
     def "should add new printing to list"() {
@@ -43,6 +44,7 @@ class AddNewPrintingTest extends Specification {
         def printerId = UUID.randomUUID().toString()
         def printingId = new Random().nextLong()
         def printerName = "printer1"
+        def printingName = "printing"
         def ownerId = "123"
         def printingTime = 21600000 //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
@@ -50,16 +52,17 @@ class AddNewPrintingTest extends Specification {
         fixture.setReportIllegalStateChange(false)
         
         when:
-        def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName)).when(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, printingStartDate))
+        def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName)).when(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate))
         
         then:
-        action.expectEvents(new NewPrintingAddedEvent(printerId, printingId, ownerId, printingTime, printingStartDate))
+        action.expectEvents(new NewPrintingAddedEvent(printerId, printingName, printingId, ownerId, printingTime, printingStartDate))
     }
     def "should not add new printing to list when technical break"() {
         given:
         def printer = new Printer()
         def printerId = UUID.randomUUID().toString()
         def printerName = "printer1"
+        def printingName = "printing"
         def printingId = new Random().nextLong()
         def ownerId = "123"
         def printingTime = 21600000 //6h
@@ -69,8 +72,8 @@ class AddNewPrintingTest extends Specification {
         
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
-                    .andGiven(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, printingStartDate))
-                    .when(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, newPrintingStartDate))
+                    .andGiven(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate))
+                    .when(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, newPrintingStartDate))
         
         then:
         action.expectExceptionMessage("Printer busy on this time")
@@ -82,6 +85,7 @@ class AddNewPrintingTest extends Specification {
         def printerId = UUID.randomUUID().toString()
         def printingId = new Random().nextLong()
         def printerName = "printer1"
+        def printingName = "printing"
         def ownerId = "123"
         def printingTime = 21600000 //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
@@ -90,8 +94,8 @@ class AddNewPrintingTest extends Specification {
         
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
-                    .andGiven(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, printingStartDate))
-                    .when(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, newPrintingStartDate))
+                    .andGiven(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate))
+                    .when(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, newPrintingStartDate))
         
         then:
         action.expectExceptionMessage("Printer busy on this time")

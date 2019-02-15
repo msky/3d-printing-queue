@@ -6,6 +6,8 @@ public class NewPrintingAddedEvent {
     
     private final String printerId;
     
+    private final String printingName;
+    
     private final Long printingId;
 
     private final String ownerId;
@@ -14,8 +16,9 @@ public class NewPrintingAddedEvent {
     
     private final Date printingStartDate;
     
-    public NewPrintingAddedEvent(String printerId, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
+    public NewPrintingAddedEvent(String printerId, String printingName, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
         this.printerId = printerId;
+        this.printingName = printingName;
         this.printingId = printingId;
         this.ownerId = ownerId;
         this.printingTime = printingTime;
@@ -24,6 +27,10 @@ public class NewPrintingAddedEvent {
 
     public String getPrinterId() {
         return printerId;
+    }
+
+    public String getPrintingName() {
+        return printingName;
     }
 
     public Long getPrintingId() {
