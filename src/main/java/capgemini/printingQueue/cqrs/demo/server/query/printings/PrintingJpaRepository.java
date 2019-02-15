@@ -4,13 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import capgemini.printingQueue.cqrs.demo.server.query.model.BaseRepository;
+import capgemini.printingQueue.cqrs.demo.server.query.model.BaseJpaRepository;
 
-interface PrintingRepository extends BaseRepository<PrintingBO> {
+@Repository
+interface PrintingJpaRepository extends BaseJpaRepository<PrintingBO> {
 	
-    @Query("select book from Printing p where "
-    		+ "p.printingId = :printerId and "
+    @Query("from Printing p where "
+    		+ "p.printerId = :printerId and "
     		+ "(p.printingStartDate >= :from or p.estimatingPrintingEndDate >= :from) and "
     		+ "(p.estimatingPrintingEndDate <= :to or p.printingStartDate <= :to) and "
     		+ "p.deleted = 0"

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PrinterService {
 
 	@Autowired
-	private PrinterRepository repository;
+	private PrinterJpaRepository repository;
 
 	/**
 	 * Read all printers from database.

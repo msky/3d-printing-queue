@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class PrintingMapper {
 
 	public static Printing map(PrintingBO printing) {
-		return new Printing(printing.getName(), printing.getPrintingStartDate(),
+		return new Printing(printing.getPrinterId(), printing.getName(), printing.getPrintingStartDate(),
 				printing.getEstimatingPrintingEndDate(), printing.getFinalPrintingEndDate(),
 				printing.getTechnicalBreakTime(), printing.getUserId(), printing.getEmail(), printing.getUserName(),
 				printing.getUserSurname(), printing.getTask());
@@ -17,7 +17,7 @@ public class PrintingMapper {
 	}
 	
 	public static PrintingBO map(Printing printing) {
-		return new PrintingBO(printing.getName(), printing.getPrintingStartDate(),
+		return new PrintingBO(printing.getPrinterId(), printing.getName(), printing.getPrintingStartDate(),
 				printing.getEstimatingPrintingEndDate(), printing.getFinalPrintingEndDate(),
 				printing.getTechnicalBreakTime(), printing.getUserId(), printing.getEmail(), printing.getUserName(),
 				printing.getUserSurname(), printing.getTask());

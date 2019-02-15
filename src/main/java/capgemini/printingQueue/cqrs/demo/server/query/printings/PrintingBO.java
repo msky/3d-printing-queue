@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PrintingBO extends BaseEntity {
 	private static final long serialVersionUID = 1L;
+	@Column(nullable = false) private Long printerId;
 	@Column(nullable = false) private String name;
 	@Column(nullable = false) private LocalDateTime printingStartDate;
 	@Column(nullable = false) private LocalDateTime estimatingPrintingEndDate;

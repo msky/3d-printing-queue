@@ -2,7 +2,7 @@ package capgemini.printingQueue.cqrs.demo.server.query.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BaseRepository<T extends Entity> extends JpaRepository<T, Long> {
+public interface BaseJpaRepository<T extends Entity> extends JpaRepository<T, Long> {
 	
 	@Override
 	default void delete(Entity entity) {

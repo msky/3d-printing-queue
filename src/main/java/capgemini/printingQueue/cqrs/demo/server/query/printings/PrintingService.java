@@ -3,11 +3,15 @@ package capgemini.printingQueue.cqrs.demo.server.query.printings;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class PrintingService {
 
-	private PrintingRepository repository;
+	@Autowired
+	private PrintingJpaRepository repository;
 	/**
 	 * Find all printings reservation in a range of dates for a printer.
 	 * @param printerId Printer ID
