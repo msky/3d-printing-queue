@@ -27,4 +27,17 @@ class NewQueueCreationTest extends Specification {
 		queue.getName() == name
 		
 	}
+    
+    def "should call creation event"() {
+        
+        given:
+        def id = UUID.randomUUID().toString()
+        def name = "queue1"
+        
+        when:
+        def action = fixture.given().when(new CreateQueueCommand(id, name))
+        
+        then:
+        action.expectEvents(new QueueCreatedEvent(id, name))
+    }
 }
