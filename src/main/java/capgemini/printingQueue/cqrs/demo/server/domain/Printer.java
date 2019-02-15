@@ -1,32 +1,27 @@
 package capgemini.printingQueue.cqrs.demo.server.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
+import org.axonframework.modelling.command.AggregateMember;
+import org.axonframework.modelling.command.ForwardMatchingInstances;
 import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
 public class Printer {
     
-    /**
-     * Time for single technical break - preparing or cleaning - in miliseconds.
-     * 15mins.
-     */
-    private static final Long TECHNICAL_BREAK_TIME = 900000L; 
-	
 	@AggregateIdentifier
 	private String id;
 	
 	private String name;
 	
-	private List<Printing> printingList = new ArrayList<Printing>();
-
+	@AggregateMember(eventForwardingMode = ForwardMatchingInstances.class)
+	private Queue queue;
+	
 	
 	public Printer() {
+	    queue = new Queue(id);
 	}
 	
 	@CommandHandler
@@ -38,24 +33,20 @@ public class Printer {
 	public void on(PrinterCreatedEvent event) {
 		id = event.getId();
 		name = event.getName();
+		queue = new Queue(id);
 	}
 	
-	@CommandHandler
-	public void on(AddNewPrintingCommand command) {
-        AggregateLifecycle.apply(new NewPrintingAddedEvent(command.getQueueId(), command.getPrintingId(),
-                command.getOwnerId(), command.getPrintingTime(), command.getPrintingStartDate()));
-	}
-
-	@EventSourcingHandler
-	public void on(NewPrintingAddedEvent event) throws Exception {
-        final Printing newPrinting = new Printing(event.getPrintingId(), event.getOwnerId(), event.getPrintingTime(),
-                event.getPrintingStartDate());
-        if (isNewPrintingAddPossible(newPrinting)) {
-            this.printingList.add(newPrinting);
+    @CommandHandler
+    public void on(AddNewPrintingCommand command) throws Exception {
+        final Printing newPrinting = new Printing(command.getPrintingId(), command.getOwnerId(), command.getPrintingTime(),
+                command.getPrintingStartDate());
+        if (queue.isNewPrintingAddPossible(newPrinting)) {
+            AggregateLifecycle.apply(new NewPrintingAddedEvent(command.getPrinterId(), command.getPrintingId(),
+                    command.getOwnerId(), command.getPrintingTime(), command.getPrintingStartDate()));
         } else {
             throw new Exception("Printer busy on this time");
         }
-	}
+    }
 	
 	public String getId() {
 		return id;
@@ -72,29 +63,9 @@ public class Printer {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-    public List<Printing> getPrintingList() {
-        return printingList;
-    }
-
-    /**
-     * Validates if new printing can be added. If printer will be free for his
-     * reservation time.
-     * 
-     * @param newPrinting new Printing to add
-     * @return true if printing can be added, otherwise false
-     */
-    private boolean isNewPrintingAddPossible(Printing newPrinting) {
-        final Long newPrintingStartDate = newPrinting.getPrintingStartDate().getTime();
-        final Long newPrintingEstimatedEndDate = newPrintingStartDate + newPrinting.getPrintingTime() + 2 * TECHNICAL_BREAK_TIME;
-        for (Printing printing : printingList) {
-            final Long printingStartDate = printing.getPrintingStartDate().getTime();
-            final Long estimatedEndDate = printingStartDate + printing.getPrintingTime() + 2 * TECHNICAL_BREAK_TIME;
-            if (newPrintingStartDate < estimatedEndDate && newPrintingEstimatedEndDate > printingStartDate) {
-                return false;
-            }
-        }
-        return true;
-    }
 	
+    public Queue getQueue() {
+        return queue;
+    }
+
 }

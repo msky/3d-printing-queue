@@ -5,17 +5,17 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class CreatePrinterCommand {
 	
 	@TargetAggregateIdentifier
-	private final String id;
+	private final String printerId;
 	
 	private final String name;
 
-	public CreatePrinterCommand(String queueId, String queueName) {
-		this.id = queueId;
-		this.name = queueName;
+	public CreatePrinterCommand(String printerId, String printerName) {
+		this.printerId = printerId;
+		this.name = printerName;
 	}
 
 	public String getId() {
-		return id;
+		return printerId;
 	}
 
 	public String getName() {

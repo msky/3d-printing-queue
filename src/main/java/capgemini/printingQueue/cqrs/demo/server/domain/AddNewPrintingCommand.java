@@ -7,7 +7,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class AddNewPrintingCommand {
     
     @TargetAggregateIdentifier
-    private final String queueId;
+    private final String printerId;
     
     private final Long printingId;
 
@@ -17,16 +17,16 @@ public class AddNewPrintingCommand {
     
     private final Date printingStartDate;
     
-    public AddNewPrintingCommand(String queueId, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
-        this.queueId = queueId;
+    public AddNewPrintingCommand(String printerId, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
+        this.printerId = printerId;
         this.printingId = printingId;
         this.ownerId = ownerId;
         this.printingTime = printingTime;
         this.printingStartDate = printingStartDate;
     }
-
-    public String getQueueId() {
-        return queueId;
+    
+    public String getPrinterId() {
+        return printerId;
     }
 
     public Long getPrintingId() {

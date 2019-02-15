@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class NewPrintingAddedEvent {
     
-    private final String queueId;
+    private final String printerId;
     
     private final Long printingId;
 
@@ -14,16 +14,16 @@ public class NewPrintingAddedEvent {
     
     private final Date printingStartDate;
     
-    public NewPrintingAddedEvent(String queueId, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
-        this.queueId = queueId;
+    public NewPrintingAddedEvent(String printerId, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
+        this.printerId = printerId;
         this.printingId = printingId;
         this.ownerId = ownerId;
         this.printingTime = printingTime;
         this.printingStartDate = printingStartDate;
     }
 
-    public String getQueueId() {
-        return queueId;
+    public String getPrinterId() {
+        return printerId;
     }
 
     public Long getPrintingId() {

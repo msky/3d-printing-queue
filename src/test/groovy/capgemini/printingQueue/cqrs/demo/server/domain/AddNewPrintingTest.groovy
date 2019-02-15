@@ -21,8 +21,8 @@ class AddNewPrintingTest extends Specification {
     def "should call add new printing event"() {
         given:
      
-        def queueId = UUID.randomUUID().toString()
-        def queueName = "queue1"
+        def printerId = UUID.randomUUID().toString()
+        def printerName = "printer1"
         def printingId = new Random().nextLong()
         def ownerId = "123"
         def printingTime = 21600000 //6h
@@ -30,67 +30,71 @@ class AddNewPrintingTest extends Specification {
         fixture.setReportIllegalStateChange(false)
         
         when:
-        def action = fixture.givenCommands(new CreatePrinterCommand(queueId, queueName))
-                    .when(new AddNewPrintingCommand(queueId, printingId, ownerId, printingTime, printingStartDate))
+        def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
+                    .when(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, printingStartDate))
         
         then:
-        action.expectEvents(new NewPrintingAddedEvent(queueId, printingId, ownerId, printingTime, printingStartDate))
+        action.expectEvents(new NewPrintingAddedEvent(printerId, printingId, ownerId, printingTime, printingStartDate))
     }
     
     def "should add new printing to list"() {
         given:
-        def queue = new Printer()
-        def queueId = UUID.randomUUID().toString()
+        def printer = new Printer()
+        def printerId = UUID.randomUUID().toString()
         def printingId = new Random().nextLong()
+        def printerName = "printer1"
         def ownerId = "123"
         def printingTime = 21600000 //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
         def newPrintingStartDate = createDate("2019-02-15 15:00:00")
-        def printing = new Printing(printingId, ownerId, printingTime, printingStartDate)
-        queue.getPrintingList().add(printing)
+        fixture.setReportIllegalStateChange(false)
         
         when:
-        queue.on(new NewPrintingAddedEvent(queueId, printingId, ownerId, printingTime, newPrintingStartDate))
+        def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName)).when(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, printingStartDate))
         
         then:
-        queue.getPrintingList().size() == 2
+        action.expectEvents(new NewPrintingAddedEvent(printerId, printingId, ownerId, printingTime, printingStartDate))
     }
     def "should not add new printing to list when technical break"() {
         given:
-        def queue = new Printer()
-        def queueId = UUID.randomUUID().toString()
+        def printer = new Printer()
+        def printerId = UUID.randomUUID().toString()
+        def printerName = "printer1"
         def printingId = new Random().nextLong()
         def ownerId = "123"
         def printingTime = 21600000 //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
         def newPrintingStartDate = createDate("2019-02-15 14:05:00")
-        def printing = new Printing(printingId, ownerId, printingTime, printingStartDate)
-        queue.getPrintingList().add(printing)
+        fixture.setReportIllegalStateChange(false)
         
         when:
-        queue.on(new NewPrintingAddedEvent(queueId, printingId, ownerId, printingTime, newPrintingStartDate))
+        def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
+                    .andGiven(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, printingStartDate))
+                    .when(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, newPrintingStartDate))
         
         then:
-        thrown Exception
+        action.expectExceptionMessage("Printer busy on this time")
     }
     
     def "should not add new printing to list when printer busy on time"() {
         given:
-        def queue = new Printer()
-        def queueId = UUID.randomUUID().toString()
+        def printer = new Printer()
+        def printerId = UUID.randomUUID().toString()
         def printingId = new Random().nextLong()
+        def printerName = "printer1"
         def ownerId = "123"
         def printingTime = 21600000 //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
         def newPrintingStartDate = createDate("2019-02-15 10:00:00")
-        def printing = new Printing(printingId, ownerId, printingTime, printingStartDate)
-        queue.getPrintingList().add(printing)
+        fixture.setReportIllegalStateChange(false)
         
         when:
-        queue.on(new NewPrintingAddedEvent(queueId, printingId, ownerId, printingTime, newPrintingStartDate))
+        def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
+                    .andGiven(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, printingStartDate))
+                    .when(new AddNewPrintingCommand(printerId, printingId, ownerId, printingTime, newPrintingStartDate))
         
         then:
-        thrown Exception
+        action.expectExceptionMessage("Printer busy on this time")
     }
     
     private Date createDate(String date) {

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Printing {
     
-    private final Long id;
+    private final Long printingId;
 
     private final String ownerId;
     
@@ -16,14 +16,14 @@ public class Printing {
     private final Date printingStartDate;
     
     public Printing(Long id, String ownerId, Long printingTime, Date printingStartDate) {
-        this.id = id;
+        this.printingId = id;
         this.ownerId = ownerId;
         this.printingTime = printingTime;
         this.printingStartDate = printingStartDate;
     }
 
     public Long getId() {
-        return id;
+        return printingId;
     }
 
     public String getOwnerId() {
