@@ -2,7 +2,6 @@ package capgemini.printingQueue.cqrs.demo.server.query.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

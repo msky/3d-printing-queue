@@ -41,7 +41,7 @@ public abstract class BaseEntity extends Entity {
     private Date updatedAt;
 
     @NonNull
-    @Column(nullable = false, name = "updated_by")
+    @Column(name = "updated_by")
     private Long updatedBy;
 
     /**
