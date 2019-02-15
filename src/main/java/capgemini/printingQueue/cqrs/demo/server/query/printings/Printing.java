@@ -2,26 +2,35 @@ package capgemini.printingQueue.cqrs.demo.server.query.printings;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+import capgemini.printingQueue.cqrs.demo.server.query.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data 
+@Entity(name = "Printing")
+@Table(name = "Printing")  
+@AttributeOverride(name = "id", column = @Column(name = "printingId",  nullable = false))
+@Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-class Printing {
+class Printing extends BaseEntity {
 	private static final long serialVersionUID = 1L;
-	private Long printerId;
-	private String name;
-	private LocalDateTime printingStartDate;
-	private LocalDateTime estimatingPrintingEndDate;
-	private LocalDateTime finalPrintingEndDate;
-	private Integer technicalBreakTime;
-	private Long userId;	
-	private String email;	
-	private String userName;	
-	private String userSurname;	
-	private TaskType task;	
+	@Column(nullable = false) private Long printerId;
+	@Column(nullable = false) private String name;
+	@Column(nullable = false) private LocalDateTime printingStartDate;
+	@Column(nullable = false) private LocalDateTime estimatingPrintingEndDate;
+	@Column(nullable = false) private LocalDateTime finalPrintingEndDate;
+	@Column(nullable = false) private Integer technicalBreakTime;
+	@Column(nullable = false) private Long userId;	
+	@Column(nullable = false) private String email;	
+	@Column(nullable = false) private String userName;	
+	@Column(nullable = false) private String userSurname;	
+	@Column(nullable = false) private TaskType task;	
 }
