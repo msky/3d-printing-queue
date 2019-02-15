@@ -13,4 +13,8 @@ public class PrinterMapper {
 	public static List<Printer> map(List<PrinterBO> printerBOs) {
 		return printerBOs.stream().map(PrinterMapper::map).collect(Collectors.toList());
 	}
+
+	public static PrinterBO map(Printer printer) {
+		return new PrinterBO(printer.getName(), printer.getStatusFrom(), printer.getStatus());
+	}
 }
