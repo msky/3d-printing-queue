@@ -13,6 +13,7 @@ import javax.persistence.Version;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -39,4 +40,10 @@ abstract class Entity implements Serializable {
     @Column(name = "version")
     @Version
     private Long version;
+
+    @Setter(AccessLevel.PACKAGE)
+    @Getter(AccessLevel.NONE)
+    @Column(name = "deleted")
+    private boolean deleted;
+    
 }

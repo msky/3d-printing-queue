@@ -1,7 +1,6 @@
 package capgemini.printingQueue.cqrs.demo.query.printers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ public class PrinterQueryController {
     private PrinterService printerService;
 
     @GetMapping("/printers")
-    public List<Printer> findAllPrinters(Map<String, Object> params) {
+    public List<Printer> findAllPrinters() {
         return printerService.findAllPrinters();
     }
     

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 @Entity(name = "Printer")
 @Table(name = "Printer")  
-@AttributeOverride(name = "id", column = @Column(name = "printer_id",  nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "printerId",  nullable = false))
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

@@ -1,8 +1,8 @@
 package capgemini.printingQueue.cqrs.demo.query.printers;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import capgemini.printingQueue.cqrs.demo.query.model.BaseRepository;
 
 
-interface PrinterRepository extends JpaRepository<PrinterBO, Long> {
+interface PrinterRepository extends BaseRepository<PrinterBO> {
 	
 }
