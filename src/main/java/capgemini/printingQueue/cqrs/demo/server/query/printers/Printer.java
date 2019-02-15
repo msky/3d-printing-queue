@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data 
 @AllArgsConstructor
 @NoArgsConstructor
-public class Printer {
+class Printer {
 	private Long id;
 	private String name;
 	private LocalDateTime statusFrom;

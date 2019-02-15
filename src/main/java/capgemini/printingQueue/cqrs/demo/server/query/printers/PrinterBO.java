@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class PrinterBO extends BaseEntity {
+class PrinterBO extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	

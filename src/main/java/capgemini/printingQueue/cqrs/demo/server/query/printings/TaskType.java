@@ -1,6 +1,6 @@
 package capgemini.printingQueue.cqrs.demo.server.query.printings;
 
-public enum TaskType {
+enum TaskType {
 	PRINTING, PRESERVATION
  
 }

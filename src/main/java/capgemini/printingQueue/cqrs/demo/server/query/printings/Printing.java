@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data 
 @NoArgsConstructor
 @AllArgsConstructor
-public class Printing {
+class Printing {
 	private static final long serialVersionUID = 1L;
 	private Long printerId;
 	private String name;

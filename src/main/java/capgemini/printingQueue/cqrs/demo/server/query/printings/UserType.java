@@ -1,5 +1,5 @@
 package capgemini.printingQueue.cqrs.demo.server.query.printings;
 
-public enum UserType {
+enum UserType {
 	USER, ADMIN
 }

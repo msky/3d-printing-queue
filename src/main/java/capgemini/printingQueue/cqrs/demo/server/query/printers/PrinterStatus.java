@@ -1,5 +1,5 @@
 package capgemini.printingQueue.cqrs.demo.server.query.printers;
 
-public enum PrinterStatus {
+enum PrinterStatus {
 	ACTIVE, DEACTIVATE
 }
