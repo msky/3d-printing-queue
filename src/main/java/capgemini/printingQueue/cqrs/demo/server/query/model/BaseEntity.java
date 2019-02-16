@@ -18,11 +18,11 @@ import lombok.Setter;
 
 /**
  * Base Entity 
- */
+ 
 @MappedSuperclass
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
+@NoArgsConstructor*/
 public abstract class BaseEntity extends Entity {
 
 	private static final long serialVersionUID = 1L;

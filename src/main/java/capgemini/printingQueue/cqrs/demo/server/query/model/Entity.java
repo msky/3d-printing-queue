@@ -20,10 +20,10 @@ import lombok.Setter;
  * Base Entity
  *
  * @author cem ikta
- */
+
 @MappedSuperclass
 @Data
-@NoArgsConstructor
+@NoArgsConstructor */
 //TODO is it necessary?
 abstract class Entity implements Serializable {
 

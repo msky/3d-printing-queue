@@ -2,7 +2,6 @@ package capgemini.printingQueue.cqrs.demo.server.query.printings;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,16 +13,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity(name = "Printing")
-@Table(name = "Printing")  
-@AttributeOverride(name = "id", column = @Column(name = "printingId",  nullable = false))
+@Table(name = "PRINTINGS")  
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 class PrintingBO {
 	
-	@Id
-    @Column(name = "id", nullable = false) private Long id;
+	@Id private Long id;
 	@Column(nullable = false) private String printerId;
 	@Column(nullable = false) private String name;
 	@Column(nullable = false) private LocalDateTime printingStartDate;
