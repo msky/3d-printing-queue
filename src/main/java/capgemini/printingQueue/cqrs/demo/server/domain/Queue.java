@@ -1,5 +1,6 @@
 package capgemini.printingQueue.cqrs.demo.server.domain;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,17 +34,19 @@ public class Queue {
 	 * reservation time.
 	 * 
 	 * @param newPrinting                 new Printing to add
-	 * @param requiredTechnicalBreakeTime required time of technical breake, that
+	 * @param requiredTechnicalBreakeTimeMinutes required time of technical breake, that
 	 *                                    should be added before and after printing
 	 *                                    to prepare/clean the printer
 	 * @return true if printing can be added, otherwise false
 	 */
-    protected boolean isNewPrintingAddPossible(Printing newPrinting, long requiredTechnicalBreakeTime) {
-        final Long newPrintingStartDate = newPrinting.getPrintingStartDate().getTime();
-        final Long newPrintingEstimatedEndDate = newPrintingStartDate + newPrinting.getPrintingTime() + 2 * requiredTechnicalBreakeTime;
+    protected boolean isNewPrintingAddPossible(Printing newPrinting, long requiredTechnicalBreakeTimeMinutes) {
+    	//TODO refactor, we can use for example LocalDateTime api to calculate differences
+    	final Long requiredTechnicalBreakMilis = requiredTechnicalBreakeTimeMinutes * 60000;
+        final Long newPrintingStartDate = newPrinting.getPrintingStartDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        final Long newPrintingEstimatedEndDate = newPrintingStartDate + newPrinting.getDurationMinutes() + 2 * requiredTechnicalBreakMilis;
         for (Printing printing : printingsList) {
-            final Long printingStartDate = printing.getPrintingStartDate().getTime();
-            final Long estimatedEndDate = printingStartDate + printing.getPrintingTime() + 2 * requiredTechnicalBreakeTime;
+            final Long printingStartDate = printing.getPrintingStartDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            final Long estimatedEndDate = printingStartDate + printing.getDurationMinutes() + 2 * requiredTechnicalBreakeTimeMinutes;
             if (newPrintingStartDate < estimatedEndDate && newPrintingEstimatedEndDate > printingStartDate) {
                 return false;
             }

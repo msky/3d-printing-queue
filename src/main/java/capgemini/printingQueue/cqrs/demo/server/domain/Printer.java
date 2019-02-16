@@ -12,11 +12,11 @@ import org.axonframework.spring.stereotype.Aggregate;
 public class Printer {
 	
     /**
-     * Time for single technical break - preparing or cleaning - in miliseconds.
+     * Time for single technical break - preparing or cleaning - in minutes.
      * 15mins.
      */
 	//TODO: non-static field? service?
-    static final Long TECHNICAL_BREAK_TIME = 900000L; 
+    static final Long TECHNICAL_BREAK_TIME = 15L; 
     
 	@AggregateIdentifier
 	private String id;

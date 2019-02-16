@@ -105,6 +105,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<compilerId>groovy-eclipse-compiler</compilerId>
+					<compilerArgument>-parameters</compilerArgument>
 				</configuration>
 				<dependencies>
 					<dependency>

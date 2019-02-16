@@ -11,16 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Printing {
 	
-	private Long id;
+	private String id;
 	private String printerId;
 	private String name;
 	private LocalDateTime printingStartDate;
 	private LocalDateTime estimatingPrintingEndDate;
 	private LocalDateTime finalPrintingEndDate;
-	private Integer technicalBreakTime;
-	private Long userId;	
-	private String email;	
-	private String userName;	
-	private String userSurname;	
+	private Long technicalBreakTime;
+	private String ownerId;
+	private String ownerEmail;
 	private TaskType task;	
 }

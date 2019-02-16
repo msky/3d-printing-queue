@@ -1,6 +1,6 @@
 package capgemini.printingQueue.cqrs.demo.server.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
@@ -9,7 +9,7 @@ public class AddNewPrintingCommand {
     @TargetAggregateIdentifier
     private final String printerId;
     
-    private final Long printingId;
+    private final String printingId;
     
     private final String printingName;
 
@@ -17,9 +17,14 @@ public class AddNewPrintingCommand {
     
     private final Long printingTime;
     
-    private final Date printingStartDate;
+    private final LocalDateTime printingStartDate;
     
-    public AddNewPrintingCommand(String printerId, String printingName, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
+    public AddNewPrintingCommand(String printerId,
+    		String printingName,
+    		String printingId,
+    		String ownerId,
+    		Long printingTime,
+    		LocalDateTime printingStartDate) {
         this.printerId = printerId;
         this.printingName = printingName;
         this.printingId = printingId;
@@ -36,7 +41,7 @@ public class AddNewPrintingCommand {
         return printingName;
     }
 
-    public Long getPrintingId() {
+    public String getPrintingId() {
         return printingId;
     }
 
@@ -48,7 +53,7 @@ public class AddNewPrintingCommand {
         return printingTime;
     }
 
-    public Date getPrintingStartDate() {
+    public LocalDateTime getPrintingStartDate() {
         return printingStartDate;
     }
 }

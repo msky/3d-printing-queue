@@ -3,6 +3,8 @@ package capgemini.printingQueue.cqrs.demo.server.domain
 import static org.junit.Assert.*
 
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.aggregate.FixtureConfiguration
@@ -16,6 +18,7 @@ class AddNewPrintingTest extends Specification {
     
     def setup() {
         fixture = new AggregateTestFixture<Printer>(Printer.class)
+		fixture.setReportIllegalStateChange(false)
     }
     
     def "should call add new printing event"() {
@@ -24,15 +27,19 @@ class AddNewPrintingTest extends Specification {
         def printerId = UUID.randomUUID().toString()
         def printerName = "printer1"
         def printingName = "printing"
-        def printingId = new Random().nextLong()
+        def printingId = "printingUUID"
         def ownerId = "123"
-        def printingTime = 21600000 //6h
-        def printingStartDate = Calendar.getInstance().getTime()
-        fixture.setReportIllegalStateChange(false)
+        def printingTime = Long.valueOf(360) //6h
+        def printingStartDate = LocalDateTime.now()
         
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
-                    .when(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate))
+                    .when(new AddNewPrintingCommand(printerId,
+						 printingName,
+						 printingId,
+						 ownerId,
+						 printingTime,
+						 printingStartDate))
         
         then:
 		action.expectEvents(new NewPrintingAddedEvent(printerId, 
@@ -48,15 +55,14 @@ class AddNewPrintingTest extends Specification {
         given:
         def printer = new Printer()
         def printerId = UUID.randomUUID().toString()
-        def printingId = new Random().nextLong()
+        def printingId = UUID.randomUUID().toString()
         def printerName = "printer1"
         def printingName = "printing"
         def ownerId = "123"
-        def printingTime = 21600000 //6h
+        def printingTime = Long.valueOf(360)  //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
         def newPrintingStartDate = createDate("2019-02-15 15:00:00")
-        fixture.setReportIllegalStateChange(false)
-        
+		
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName)).when(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate))
         
@@ -76,12 +82,11 @@ class AddNewPrintingTest extends Specification {
         def printerId = UUID.randomUUID().toString()
         def printerName = "printer1"
         def printingName = "printing"
-        def printingId = new Random().nextLong()
+        def printingId = UUID.randomUUID().toString()
         def ownerId = "123"
-        def printingTime = 21600000 //6h
+        def printingTime = Long.valueOf(360)  //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
         def newPrintingStartDate = createDate("2019-02-15 14:05:00")
-        fixture.setReportIllegalStateChange(false)
         
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
@@ -96,14 +101,13 @@ class AddNewPrintingTest extends Specification {
         given:
         def printer = new Printer()
         def printerId = UUID.randomUUID().toString()
-        def printingId = new Random().nextLong()
+        def printingId = UUID.randomUUID().toString()
         def printerName = "printer1"
         def printingName = "printing"
         def ownerId = "123"
-        def printingTime = 21600000 //6h
+        def printingTime = Long.valueOf(360)  //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
         def newPrintingStartDate = createDate("2019-02-15 10:00:00")
-        fixture.setReportIllegalStateChange(false)
         
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
@@ -114,9 +118,9 @@ class AddNewPrintingTest extends Specification {
         action.expectExceptionMessage("Printer busy on this time")
     }
     
-    private Date createDate(String date) {
-        def format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        def createdDate = format.parse(date)
+    private LocalDateTime createDate(String date) {
+        def createdDate = LocalDateTime.parse(date,
+			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         return createdDate
     }
     

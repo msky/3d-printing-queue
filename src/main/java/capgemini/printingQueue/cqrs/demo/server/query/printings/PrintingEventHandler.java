@@ -1,8 +1,6 @@
 package capgemini.printingQueue.cqrs.demo.server.query.printings;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +16,11 @@ class PrintingEventHandler {
 
 	@EventHandler
 	public void on(NewPrintingAddedEvent event) {
-		Integer technicalBreakTime = Integer.valueOf(30);
-		LocalDateTime printingStartDate = Instant.ofEpochMilli(event.getPrintingStartDate().getTime())
-	      .atZone(ZoneId.systemDefault())
-	      .toLocalDateTime();
+		Long technicalBreakTime = event.getTechnicalBreakTime();
+		LocalDateTime printingStartDate = event.getPrintingStartDate();
 		LocalDateTime estimatedPrintingEndDate = LocalDateTime.now().plusMinutes(event.getPrintingTime());
 		LocalDateTime finalPrintingEndDate = estimatedPrintingEndDate.plusMinutes(technicalBreakTime);
-		
-		//TODO
-		Long userId = Long.valueOf(1);
+		String userId = event.getOwnerId();
 		
 		Printing printing = new Printing(
 				event.getPrintingId(),
@@ -38,8 +32,6 @@ class PrintingEventHandler {
 				technicalBreakTime, 
 				userId, 
 				"TODO email", 
-				"TODO name", 
-				"TODO surname", 
 				TaskType.PRINTING);
 	
 		repository.save(PrintingMapper.map(printing));

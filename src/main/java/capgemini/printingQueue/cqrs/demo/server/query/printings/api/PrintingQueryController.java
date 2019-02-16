@@ -14,6 +14,7 @@ import capgemini.printingQueue.cqrs.demo.server.query.printings.FindPrintingsFro
 import capgemini.printingQueue.cqrs.demo.server.query.printings.LocalDateParser;
 import capgemini.printingQueue.cqrs.demo.server.query.printings.Printing;
 
+//TODO delete controller and move printings as a resource to PrinterController
 @RestController
 @ResponseBody
 @RequestMapping("/query")

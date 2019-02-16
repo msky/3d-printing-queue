@@ -1,6 +1,6 @@
 package capgemini.printingQueue.cqrs.demo.server.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class NewPrintingAddedEvent {
 
@@ -8,23 +8,23 @@ public class NewPrintingAddedEvent {
 
 	private final String printingName;
 
-	private final Long printingId;
+	private final String printingId;
 
 	private final String ownerId;
 
-	private final Long printingTime;
+	private final Long minutesRequiredForPrinting;
 
-	private final Date printingStartDate;
+	private final LocalDateTime printingStartDate;
 
 	private final Long technicalBreakTime;
 
-	public NewPrintingAddedEvent(String printerId, String printingName, Long printingId, String ownerId,
-			Long printingTime, Date printingStartDate, Long technicalBreakTime) {
+	public NewPrintingAddedEvent(String printerId, String printingName, String printingId, String ownerId,
+			Long printingTime, LocalDateTime printingStartDate, Long technicalBreakTime) {
 		this.printerId = printerId;
 		this.printingName = printingName;
 		this.printingId = printingId;
 		this.ownerId = ownerId;
-		this.printingTime = printingTime;
+		this.minutesRequiredForPrinting = printingTime;
 		this.printingStartDate = printingStartDate;
 		this.technicalBreakTime = technicalBreakTime;
 	}
@@ -37,7 +37,7 @@ public class NewPrintingAddedEvent {
 		return printingName;
 	}
 
-	public Long getPrintingId() {
+	public String getPrintingId() {
 		return printingId;
 	}
 
@@ -46,10 +46,10 @@ public class NewPrintingAddedEvent {
 	}
 
 	public Long getPrintingTime() {
-		return printingTime;
+		return minutesRequiredForPrinting;
 	}
 
-	public Date getPrintingStartDate() {
+	public LocalDateTime getPrintingStartDate() {
 		return printingStartDate;
 	}
 

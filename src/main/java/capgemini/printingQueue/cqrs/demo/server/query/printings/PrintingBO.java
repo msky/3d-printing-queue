@@ -20,16 +20,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 class PrintingBO {
 	
-	@Id private Long id;
+	@Id private String id;
 	@Column(nullable = false) private String printerId;
 	@Column(nullable = false) private String name;
 	@Column(nullable = false) private LocalDateTime printingStartDate;
 	@Column(nullable = false) private LocalDateTime estimatingPrintingEndDate;
 	@Column private LocalDateTime finalPrintingEndDate;
-	@Column(nullable = false) private Integer technicalBreakTime;
-	@Column(nullable = false) private Long userId;	
-	@Column(nullable = false) private String email;	
-	@Column(nullable = false) private String userName;	
-	@Column(nullable = false) private String userSurname;	
+	@Column(nullable = false) private Long technicalBreakTime;
+	@Column(nullable = false) private String ownerId;	
+	@Column(nullable = false) private String ownerEmail;	
 	@Column(nullable = false) private TaskType task;	
 }

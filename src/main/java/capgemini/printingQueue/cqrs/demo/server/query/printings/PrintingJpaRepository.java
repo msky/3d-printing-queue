@@ -1,6 +1,6 @@
 package capgemini.printingQueue.cqrs.demo.server.query.printings;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +13,7 @@ interface PrintingJpaRepository extends JpaRepository<PrintingBO, String> {
     		+ "(p.printingStartDate >= :from or p.estimatingPrintingEndDate >= :from) and "
     		+ "(p.estimatingPrintingEndDate <= :to or p.printingStartDate <= :to)"
     		)
-	List<PrintingBO> findAllPrintingReservations(String printerId, LocalDate from, LocalDate to);
+	List<PrintingBO> findAllPrintingReservations(String printerId, LocalDateTime from, LocalDateTime to);
     
  
 }

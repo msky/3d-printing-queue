@@ -14,10 +14,8 @@ public class PrintingMapper {
 				printing.getEstimatingPrintingEndDate(),
 				printing.getFinalPrintingEndDate(),
 				printing.getTechnicalBreakTime(),
-				printing.getUserId(),
-				printing.getEmail(),
-				printing.getUserName(),
-				printing.getUserSurname(),
+				printing.getOwnerId(),
+				printing.getOwnerEmail(),
 				printing.getTask());
 	}
 	
@@ -34,10 +32,8 @@ public class PrintingMapper {
 				printing.getEstimatingPrintingEndDate(),
 				printing.getFinalPrintingEndDate(),
 				printing.getTechnicalBreakTime(),
-				printing.getUserId(),
-				printing.getEmail(),
-				printing.getUserName(),
-				printing.getUserSurname(),
+				printing.getOwnerId(),
+				printing.getOwnerEmail(),
 				printing.getTask());
 	}
 
