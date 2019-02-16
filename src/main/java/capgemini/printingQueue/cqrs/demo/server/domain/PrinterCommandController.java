@@ -19,10 +19,12 @@ public class PrinterCommandController {
 		this.commandGateway = commandGateway;
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	/* @PreAuthorize("hasRole('ADMIN')") */
 	@PostMapping("/printers")
-	public void addNewPrinter(@RequestParam String printerName) throws InterruptedException, ExecutionException {
-		final UUID queueId = UUID.randomUUID();
-		System.out.println(commandGateway.send(new CreatePrinterCommand(queueId.toString(), printerName)).get());
+	public String addNewPrinter(@RequestParam String printerName) throws InterruptedException, ExecutionException {
+		final UUID pritnerId = UUID.randomUUID();
+		commandGateway.send(new CreatePrinterCommand(pritnerId.toString(), printerName));
+		return pritnerId.toString();
 	}
+	
 }
