@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data 
 @NoArgsConstructor
 @AllArgsConstructor
-class Printing {
+public class Printing {
 	
 	private Long id;
 	private String printerId;

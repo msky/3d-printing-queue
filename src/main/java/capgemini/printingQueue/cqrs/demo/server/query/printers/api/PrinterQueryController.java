@@ -1,4 +1,4 @@
-package capgemini.printingQueue.cqrs.demo.server.query.printers;
+package capgemini.printingQueue.cqrs.demo.server.query.printers.api;
 
 import java.util.List;
 
@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import capgemini.printingQueue.cqrs.demo.server.query.printers.FindAllPrintersQuery;
+import capgemini.printingQueue.cqrs.demo.server.query.printers.Printer;
 
 @RestController
 @ResponseBody

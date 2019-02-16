@@ -1,4 +1,4 @@
-package capgemini.printingQueue.cqrs.demo.server.query.printings;
+package capgemini.printingQueue.cqrs.demo.server.query.printings.api;
 
 import java.util.List;
 
@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import capgemini.printingQueue.cqrs.demo.server.query.printings.FindPrintingsFromTimeRangeQuery;
+import capgemini.printingQueue.cqrs.demo.server.query.printings.LocalDateParser;
+import capgemini.printingQueue.cqrs.demo.server.query.printings.Printing;
 
 @RestController
 @ResponseBody
