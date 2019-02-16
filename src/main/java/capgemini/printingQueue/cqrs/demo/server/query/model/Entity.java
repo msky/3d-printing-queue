@@ -24,6 +24,7 @@ import lombok.Setter;
 @MappedSuperclass
 @Data
 @NoArgsConstructor
+//TODO is it necessary?
 abstract class Entity implements Serializable {
 
     private static final long serialVersionUID = 1L;

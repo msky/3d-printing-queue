@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-import capgemini.printingQueue.cqrs.demo.server.query.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,16 +17,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "Printing")  
 @AttributeOverride(name = "id", column = @Column(name = "printingId",  nullable = false))
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-class PrintingBO extends BaseEntity {
-	private static final long serialVersionUID = 1L;
-	@Column(nullable = false) private Long printerId;
+class PrintingBO {
+	
+	@Id
+    @Column(name = "id", nullable = false) private Long id;
+	@Column(nullable = false) private String printerId;
 	@Column(nullable = false) private String name;
 	@Column(nullable = false) private LocalDateTime printingStartDate;
 	@Column(nullable = false) private LocalDateTime estimatingPrintingEndDate;
-	@Column(nullable = false) private LocalDateTime finalPrintingEndDate;
+	@Column private LocalDateTime finalPrintingEndDate;
 	@Column(nullable = false) private Integer technicalBreakTime;
 	@Column(nullable = false) private Long userId;	
 	@Column(nullable = false) private String email;	

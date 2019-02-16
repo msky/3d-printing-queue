@@ -2,6 +2,7 @@ package capgemini.printingQueue.cqrs.demo.server.query.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+//TODO is it necessary?
 public interface BaseJpaRepository<T extends Entity> extends JpaRepository<T, Long> {
 	
 	@Override

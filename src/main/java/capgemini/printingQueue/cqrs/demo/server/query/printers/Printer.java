@@ -9,7 +9,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import capgemini.printingQueue.cqrs.demo.server.query.model.BaseEntity;
-import capgemini.printingQueue.cqrs.demo.server.query.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

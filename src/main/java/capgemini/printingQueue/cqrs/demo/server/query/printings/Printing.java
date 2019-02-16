@@ -2,8 +2,6 @@ package capgemini.printingQueue.cqrs.demo.server.query.printings;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 class Printing {
-	private static final long serialVersionUID = 1L;
-	private Long printerId;
+	
+	private Long id;
+	private String printerId;
 	private String name;
 	private LocalDateTime printingStartDate;
 	private LocalDateTime estimatingPrintingEndDate;

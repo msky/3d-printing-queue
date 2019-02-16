@@ -3,19 +3,17 @@ package capgemini.printingQueue.cqrs.demo.server.query.printings;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import capgemini.printingQueue.cqrs.demo.server.query.model.BaseJpaRepository;
-
-interface PrintingJpaRepository extends BaseJpaRepository<PrintingBO> {
+interface PrintingJpaRepository extends JpaRepository<PrintingBO, String> {
 	
     @Query("from Printing p where "
     		+ "p.printerId = :printerId and "
     		+ "(p.printingStartDate >= :from or p.estimatingPrintingEndDate >= :from) and "
-    		+ "(p.estimatingPrintingEndDate <= :to or p.printingStartDate <= :to) and "
-    		+ "p.deleted = 0"
+    		+ "(p.estimatingPrintingEndDate <= :to or p.printingStartDate <= :to)"
     		)
-	List<PrintingBO> findAllPrintingReservations(Long printerId, LocalDate from, LocalDate to);
+	List<PrintingBO> findAllPrintingReservations(String printerId, LocalDate from, LocalDate to);
     
  
 }
