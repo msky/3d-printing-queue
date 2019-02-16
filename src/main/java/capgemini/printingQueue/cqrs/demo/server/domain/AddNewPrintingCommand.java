@@ -10,6 +10,8 @@ public class AddNewPrintingCommand {
     private final String printerId;
     
     private final Long printingId;
+    
+    private final String printingName;
 
     private final String ownerId;
     
@@ -17,8 +19,9 @@ public class AddNewPrintingCommand {
     
     private final Date printingStartDate;
     
-    public AddNewPrintingCommand(String printerId, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
+    public AddNewPrintingCommand(String printerId, String printingName, Long printingId, String ownerId, Long printingTime, Date printingStartDate) {
         this.printerId = printerId;
+        this.printingName = printingName;
         this.printingId = printingId;
         this.ownerId = ownerId;
         this.printingTime = printingTime;
@@ -27,6 +30,10 @@ public class AddNewPrintingCommand {
     
     public String getPrinterId() {
         return printerId;
+    }
+    
+    public String getPrintingName() {
+        return printingName;
     }
 
     public Long getPrintingId() {

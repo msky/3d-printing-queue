@@ -7,13 +7,7 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.EntityId;
 
 public class Queue {
-    
-    /**
-     * Time for single technical break - preparing or cleaning - in miliseconds.
-     * 15mins.
-     */
-    private static final Long TECHNICAL_BREAK_TIME = 900000L; 
-    
+        
     @EntityId(routingKey="printerId")
     private String id;
 
@@ -26,8 +20,8 @@ public class Queue {
     
     @EventSourcingHandler
     public void on(NewPrintingAddedEvent event) throws Exception {
-        final Printing newPrinting = new Printing(event.getPrintingId(), event.getOwnerId(), event.getPrintingTime(),
-                event.getPrintingStartDate());
+        final Printing newPrinting = new Printing(event.getPrintingId(), event.getPrintingName(), event.getOwnerId(),
+                event.getPrintingTime(), event.getPrintingStartDate());
         this.printingsList.add(newPrinting);
     }
     public List<Printing> getPrintingsList() {
@@ -35,18 +29,21 @@ public class Queue {
     }
     
     /**
-     * Validates if new printing can be added. If printer will be free for his
-     * reservation time.
-     * 
-     * @param newPrinting new Printing to add
-     * @return true if printing can be added, otherwise false
-     */
-    protected boolean isNewPrintingAddPossible(Printing newPrinting) {
+	 * Validates if new printing can be added. If printer will be free for his
+	 * reservation time.
+	 * 
+	 * @param newPrinting                 new Printing to add
+	 * @param requiredTechnicalBreakeTime required time of technical breake, that
+	 *                                    should be added before and after printing
+	 *                                    to prepare/clean the printer
+	 * @return true if printing can be added, otherwise false
+	 */
+    protected boolean isNewPrintingAddPossible(Printing newPrinting, long requiredTechnicalBreakeTime) {
         final Long newPrintingStartDate = newPrinting.getPrintingStartDate().getTime();
-        final Long newPrintingEstimatedEndDate = newPrintingStartDate + newPrinting.getPrintingTime() + 2 * TECHNICAL_BREAK_TIME;
+        final Long newPrintingEstimatedEndDate = newPrintingStartDate + newPrinting.getPrintingTime() + 2 * requiredTechnicalBreakeTime;
         for (Printing printing : printingsList) {
             final Long printingStartDate = printing.getPrintingStartDate().getTime();
-            final Long estimatedEndDate = printingStartDate + printing.getPrintingTime() + 2 * TECHNICAL_BREAK_TIME;
+            final Long estimatedEndDate = printingStartDate + printing.getPrintingTime() + 2 * requiredTechnicalBreakeTime;
             if (newPrintingStartDate < estimatedEndDate && newPrintingEstimatedEndDate > printingStartDate) {
                 return false;
             }
