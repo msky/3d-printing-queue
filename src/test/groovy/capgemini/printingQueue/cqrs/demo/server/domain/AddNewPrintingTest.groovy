@@ -63,17 +63,24 @@ class AddNewPrintingTest extends Specification {
         def ownerId = "123"
         def printingTime = Long.valueOf(360)  //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
-        def newPrintingStartDate = createDate("2019-02-15 15:00:00")
+        def newPrintingStartDate = createDate("2019-02-15 14:31:00")
         def technicalBreakDuration = 15L
 		
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
-                        .when(new AddNewPrintingCommand(printerId, 
+                        .andGivenCommands(new AddNewPrintingCommand(printerId, 
                             printingName, 
                             printingId, 
                             ownerId, 
                             printingTime, 
                             printingStartDate,
+                            technicalBreakDuration))
+                        .when(new AddNewPrintingCommand(printerId, 
+                            printingName, 
+                            printingId, 
+                            ownerId, 
+                            printingTime, 
+                            newPrintingStartDate,
                             technicalBreakDuration))
         
         then:
@@ -82,7 +89,7 @@ class AddNewPrintingTest extends Specification {
 			printingId,
 			ownerId,
 			printingTime,
-			printingStartDate,
+			newPrintingStartDate,
 			technicalBreakDuration))
     }
 	
@@ -92,20 +99,22 @@ class AddNewPrintingTest extends Specification {
         def printerId = UUID.randomUUID().toString()
         def printerName = "printer1"
         def printingName = "printing"
+        def secondPrintingName = "second printing"
         def printingId = UUID.randomUUID().toString()
         def ownerId = "123"
         def printingTime = Long.valueOf(360)  //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
-        def newPrintingStartDate = createDate("2019-02-15 14:05:00")
+        def newPrintingStartDate = createDate("2019-02-15 14:25:00")
         def technicalBreakDuration = 15L
         
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
-                    .andGiven(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate, technicalBreakDuration))
-                    .when(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, newPrintingStartDate, technicalBreakDuration))
+                    .andGivenCommands(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate, technicalBreakDuration))
+                    .when(new AddNewPrintingCommand(printerId, secondPrintingName, printingId, ownerId, printingTime, newPrintingStartDate, technicalBreakDuration))
         
         then:
-        action.expectExceptionMessage("Printer busy on this time")
+        action.expectException(Exception.class)
+                .expectExceptionMessage("Printer busy on this time")
     }
     
     def "should not add new printing to list when printer busy on time"() {
@@ -115,6 +124,7 @@ class AddNewPrintingTest extends Specification {
         def printingId = UUID.randomUUID().toString()
         def printerName = "printer1"
         def printingName = "printing"
+        def secondPrintingName = "second printing"
         def ownerId = "123"
         def printingTime = Long.valueOf(360)  //6h
         def printingStartDate = createDate("2019-02-15 08:00:00")
@@ -123,11 +133,12 @@ class AddNewPrintingTest extends Specification {
         
         when:
         def action = fixture.givenCommands(new CreatePrinterCommand(printerId, printerName))
-                    .andGiven(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate, technicalBreakDuration))
-                    .when(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, newPrintingStartDate, technicalBreakDuration))
+                    .andGivenCommands(new AddNewPrintingCommand(printerId, printingName, printingId, ownerId, printingTime, printingStartDate, technicalBreakDuration))
+                    .when(new AddNewPrintingCommand(printerId, secondPrintingName, printingId, ownerId, printingTime, newPrintingStartDate, technicalBreakDuration))
         
         then:
-        action.expectExceptionMessage("Printer busy on this time")
+        action.expectException(Exception.class)
+                .expectExceptionMessage("Printer busy on this time")
     }
     
     private LocalDateTime createDate(String date) {
