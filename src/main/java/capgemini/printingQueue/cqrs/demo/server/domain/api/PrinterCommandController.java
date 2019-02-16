@@ -1,4 +1,4 @@
-package capgemini.printingQueue.cqrs.demo.server.domain;
+package capgemini.printingQueue.cqrs.demo.server.domain.api;
 
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -7,6 +7,8 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import capgemini.printingQueue.cqrs.demo.server.domain.CreatePrinterCommand;
 
 
 @RestController
