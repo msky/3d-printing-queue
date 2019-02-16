@@ -10,13 +10,6 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
 public class Printer {
-	
-    /**
-     * Time for single technical break - preparing or cleaning - in minutes.
-     * 15mins.
-     */
-	//TODO: non-static field? service?
-    static final Long TECHNICAL_BREAK_TIME = 15L; 
     
 	@AggregateIdentifier
 	private String id;
@@ -46,11 +39,12 @@ public class Printer {
     @CommandHandler
     public void on(AddNewPrintingCommand command) throws Exception {
         final Printing newPrinting = new Printing(command.getPrintingId(), command.getPrintingName(),
-                command.getOwnerId(), command.getPrintingTime(), command.getPrintingStartDate());
-        if (queue.isNewPrintingAddPossible(newPrinting, TECHNICAL_BREAK_TIME)) {
+                command.getOwnerId(), command.getPrintingTime(), command.getPrintingStartDate(),
+                command.getTechnicalBreakDuration());
+        if (queue.isNewPrintingAddPossible(newPrinting, command.getTechnicalBreakDuration())) {
 			AggregateLifecycle.apply(new NewPrintingAddedEvent(command.getPrinterId(), command.getPrintingName(),
 					command.getPrintingId(), command.getOwnerId(), command.getPrintingTime(),
-					command.getPrintingStartDate(), TECHNICAL_BREAK_TIME));
+					command.getPrintingStartDate(), command.getTechnicalBreakDuration()));
         } else {
             throw new Exception("Printer busy on this time");
         }

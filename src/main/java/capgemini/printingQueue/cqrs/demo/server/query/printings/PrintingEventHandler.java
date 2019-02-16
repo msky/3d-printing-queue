@@ -16,10 +16,10 @@ class PrintingEventHandler {
 
 	@EventHandler
 	public void on(NewPrintingAddedEvent event) {
-		Long technicalBreakTime = event.getTechnicalBreakTime();
+		Long technicalBreakDuration = event.getTechnicalBreakDuration();
 		LocalDateTime printingStartDate = event.getPrintingStartDate();
 		LocalDateTime estimatedPrintingEndDate = LocalDateTime.now().plusMinutes(event.getPrintingTime());
-		LocalDateTime finalPrintingEndDate = estimatedPrintingEndDate.plusMinutes(technicalBreakTime);
+		LocalDateTime finalPrintingEndDate = estimatedPrintingEndDate.plusMinutes(technicalBreakDuration);
 		String userId = event.getOwnerId();
 		
 		Printing printing = new Printing(
@@ -29,7 +29,7 @@ class PrintingEventHandler {
 				printingStartDate, 
 				estimatedPrintingEndDate,
 				finalPrintingEndDate, 
-				technicalBreakTime, 
+				technicalBreakDuration, 
 				userId, 
 				"TODO email", 
 				TaskType.PRINTING);

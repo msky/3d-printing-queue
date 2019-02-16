@@ -19,18 +19,22 @@ public class AddNewPrintingCommand {
     
     private final LocalDateTime printingStartDate;
     
+    private final Long technicalBreakDuration;
+    
     public AddNewPrintingCommand(String printerId,
     		String printingName,
     		String printingId,
     		String ownerId,
     		Long printingTime,
-    		LocalDateTime printingStartDate) {
+    		LocalDateTime printingStartDate,
+    		Long technicalBreakDuration) {
         this.printerId = printerId;
         this.printingName = printingName;
         this.printingId = printingId;
         this.ownerId = ownerId;
         this.printingTime = printingTime;
         this.printingStartDate = printingStartDate;
+        this.technicalBreakDuration = technicalBreakDuration;
     }
     
     public String getPrinterId() {
@@ -55,5 +59,9 @@ public class AddNewPrintingCommand {
 
     public LocalDateTime getPrintingStartDate() {
         return printingStartDate;
+    }
+
+    public Long getTechnicalBreakDuration() {
+        return technicalBreakDuration;
     }
 }

@@ -22,7 +22,7 @@ public class Queue {
     @EventSourcingHandler
     public void on(NewPrintingAddedEvent event) throws Exception {
         final Printing newPrinting = new Printing(event.getPrintingId(), event.getPrintingName(), event.getOwnerId(),
-                event.getPrintingTime(), event.getPrintingStartDate());
+                event.getPrintingTime(), event.getPrintingStartDate(), event.getTechnicalBreakDuration());
         this.printingsList.add(newPrinting);
     }
     public List<Printing> getPrintingsList() {

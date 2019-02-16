@@ -37,7 +37,8 @@ public class PrinterCommandController {
 				printing.getGuid(),
 				printing.getOwnerId(),
 				printing.getDuration(),
-				LocalDateTime.parse(printing.getStartDate(), DateTimeFormatter.ISO_DATE_TIME)));
+				LocalDateTime.parse(printing.getStartDate(), DateTimeFormatter.ISO_DATE_TIME),
+				printing.getTechnicalBreakDuration()));
 	}
 
 }

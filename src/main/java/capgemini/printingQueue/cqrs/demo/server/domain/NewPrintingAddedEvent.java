@@ -16,17 +16,17 @@ public class NewPrintingAddedEvent {
 
 	private final LocalDateTime printingStartDate;
 
-	private final Long technicalBreakTime;
+	private final Long technicalBreakDuration;
 
 	public NewPrintingAddedEvent(String printerId, String printingName, String printingId, String ownerId,
-			Long printingTime, LocalDateTime printingStartDate, Long technicalBreakTime) {
+			Long printingTime, LocalDateTime printingStartDate, Long technicalBreakDuration) {
 		this.printerId = printerId;
 		this.printingName = printingName;
 		this.printingId = printingId;
 		this.ownerId = ownerId;
 		this.minutesRequiredForPrinting = printingTime;
 		this.printingStartDate = printingStartDate;
-		this.technicalBreakTime = technicalBreakTime;
+		this.technicalBreakDuration = technicalBreakDuration;
 	}
 
 	public String getPrinterId() {
@@ -53,8 +53,8 @@ public class NewPrintingAddedEvent {
 		return printingStartDate;
 	}
 
-	public Long getTechnicalBreakTime() {
-		return technicalBreakTime;
+	public Long getTechnicalBreakDuration() {
+		return technicalBreakDuration;
 	}
 
 }

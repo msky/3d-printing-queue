@@ -26,7 +26,7 @@ class PrintingBO {
 	@Column(nullable = false) private LocalDateTime printingStartDate;
 	@Column(nullable = false) private LocalDateTime estimatingPrintingEndDate;
 	@Column private LocalDateTime finalPrintingEndDate;
-	@Column(nullable = false) private Long technicalBreakTime;
+	@Column(nullable = false) private Long technicalBreakDuration;
 	@Column(nullable = false) private String ownerId;	
 	@Column(nullable = false) private String ownerEmail;	
 	@Column(nullable = false) private TaskType task;	

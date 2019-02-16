@@ -17,27 +17,30 @@ public class Printing {
     
     private final LocalDateTime printingStartDate;
     
-    //TODO technical break value
+    private final Long technicalBrekDuration;
+    
     public Printing(String id,
     		String printingName,
     		String ownerId,
     		Long printingTime,
-    		LocalDateTime printingStartDate) {
+    		LocalDateTime printingStartDate,
+    		Long technicalBreakDuration) {
         this.printingId = id;
         this.printingName = printingName;
         this.ownerId = ownerId;
         this.durationMinutes = printingTime;
         this.printingStartDate = printingStartDate;
+        this.technicalBrekDuration = technicalBreakDuration;
     }
 
     public String getPrintingId() {
         return printingId;
     }
     
-    public String getPrinterName() {
+    public String getPrintingName() {
         return printingName;
     }
-
+    
     public String getOwnerId() {
         return ownerId;
     }
@@ -49,5 +52,8 @@ public class Printing {
     public LocalDateTime getPrintingStartDate() {
         return printingStartDate;
     }
-    
+
+    public Long getTechnicalBrekDuration() {
+        return technicalBrekDuration;
+    }
 }

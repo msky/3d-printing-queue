@@ -17,7 +17,7 @@ public class Printing {
 	private LocalDateTime printingStartDate;
 	private LocalDateTime estimatingPrintingEndDate;
 	private LocalDateTime finalPrintingEndDate;
-	private Long technicalBreakTime;
+	private Long technicalBreakDuration;
 	private String ownerId;
 	private String ownerEmail;
 	private TaskType task;	

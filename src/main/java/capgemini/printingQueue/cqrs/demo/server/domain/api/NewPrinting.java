@@ -14,5 +14,7 @@ public class NewPrinting {
 	private String startDate;
 
 	private String ownerId;
+	
+	private Long technicalBreakDuration;
 
 }
