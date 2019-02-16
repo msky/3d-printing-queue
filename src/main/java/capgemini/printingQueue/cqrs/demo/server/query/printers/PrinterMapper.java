@@ -1,10 +1,7 @@
 package capgemini.printingQueue.cqrs.demo.server.query.printers;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PrinterMapper {
 
@@ -14,8 +11,7 @@ public class PrinterMapper {
 	}
 	
 	public static List<Printer> map(List<PrinterBO> printerBOs) {
-		return Optional.ofNullable(printerBOs)
-				.map(Collection::stream).orElseGet(Stream::empty)
+		return printerBOs.stream()
 				.map(PrinterMapper::map)
 				.collect(Collectors.toList());
 	}
