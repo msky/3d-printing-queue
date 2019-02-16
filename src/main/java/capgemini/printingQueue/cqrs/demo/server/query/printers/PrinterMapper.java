@@ -1,12 +1,13 @@
 package capgemini.printingQueue.cqrs.demo.server.query.printers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PrinterMapper {
 
 	public static Printer map(PrinterBO printerBO) {
-		return new Printer(printerBO.getId(), printerBO.getName(), printerBO.getStatusFrom(),
+		return new Printer(printerBO.getId(), printerBO.getName(),
 				printerBO.getStatus());
 	}
 	
@@ -19,7 +20,7 @@ public class PrinterMapper {
 	public static PrinterBO map(Printer printer) {
 		return new PrinterBO(printer.getId(),
 				printer.getName(),
-				printer.getStatusFrom(),
+				LocalDateTime.now(),
 				printer.getStatus());
 	}
 }

@@ -4,7 +4,6 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
